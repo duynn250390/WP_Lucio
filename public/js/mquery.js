@@ -75,7 +75,7 @@ $(document).on('click', '.buttlet_menu', function() {
     CONTROL_MODAL = {
         Body: $('body'),
         main_header: $('.main_header'),
-        navigation: $('.navigation'),
+        navigation: $('.menu-menu-header-container'),
     }
     CONTROL_MODAL.main_header.append('<div class="menu_ovelay"></div>');
     $('.menu_ovelay').css({

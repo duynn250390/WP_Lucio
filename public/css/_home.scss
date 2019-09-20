@@ -42,12 +42,12 @@ body {
         }
     }
 
-    .navigation {
-        .menu_primary_menu {
+    .navigation,.menu-menu-header-container {
+        .menu_primary_menu,.menu {
             display: flex;
             flex-direction: row;
 
-            .menu_item {
+            .menu_item,.menu-item {
                 margin-right: 1em;
 
                 &:last-child {
@@ -369,16 +369,18 @@ body {
 .mobile_menu {
     overflow: hidden;
 
-    .nav_menu {
+    .nav_menu,.menu {
         display: grid;
         grid-template-columns: repeat(1, 1fr);
         grid-gap: 10px;
 
-        .menu_item {
+        .menu_item,.menu-item {
             grid-column: 1 span;
+            display: block;
 
             a {
-                padding: 1em 1em;
+                display: block;
+                padding: 0.5em 1em;
                 text-decoration: none;
                 outline: none;
                 color: #333;

@@ -28,7 +28,8 @@
                 <div class="site_branding">
                     <a class="logo" href="<?php bloginfo('url'); ?>"><img src="<?php echo get_template_directory_uri() ?>/public/images/icon/LOGO.png"></a>
                 </div>
-                <nav class="navigation">
+                <?php wp_nav_menu('global-nav'); ?>
+                <!-- <nav class="navigation">
                     <ul class="menu_primary_menu nav_menu">
                         <li class="menu_item"><a href="">TRANG CHỦ</a></li>
                         <li class="menu_item"><a href="">QUẦN JEANS</a></li>
@@ -38,12 +39,12 @@
                         <li class="menu_item"><a href="">LIÊN HỆ</a></li>
                         <li class="menu_item"><a href="">ĐẶT HÀNG</a></li>
                     </ul>
-                </nav>
+                </nav> -->
             </div>
         </div>
         <div class="respo_menu">
             <div class="mobile_logo">
-                <a class="logo" href=""><img src="<?php echo get_template_directory_uri() ?>/public/images/icon/LOGO.png"></a>
+                <a class="logo" href="<?php bloginfo('url'); ?>"><img src="<?php echo get_template_directory_uri() ?>/public/images/icon/LOGO.png"></a>
             </div>
             <nav class="mobile_menu"></nav>
         </div>
