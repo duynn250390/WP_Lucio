@@ -1,0 +1,22 @@
+#gallery-metabox-list {
+	display: block;
+}
+#gallery-metabox-list:after {
+	content: '';
+	display: block;
+	clear: both;
+	height: 0;
+	overflow: hidden;
+}
+#gallery-metabox-list li {
+	float: left;
+	width: 25%;
+	text-align: center;
+	cursor: move;
+}
+.box_change{
+	display: block;
+}
+.box_change a{
+	display: inline-block;
+}
