@@ -1,0 +1,27 @@
+.warap_article {
+    padding: 3em 0;
+
+    .box_article {}
+}
+
+.warap_article {
+    .main_title {
+        font-size: px2em(24);
+        font-weight: 600;
+        &.size{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            &::before{
+                background-image: url(../images/icon/security-on.png);
+                content: '';
+                background-size: 30px;
+                display: block;
+                height: 30px;
+                width: 30px;
+                margin-right: 0.5em;
+                
+            }
+        }
+    }
+}
