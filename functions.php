@@ -129,7 +129,7 @@ function manager_product()
  * Biến $label để chứa các text liên quan đến tên hiển thị của Post Type trong Admin
  */
 $label = array(
-    'name' => 'Sản phẩm', //Tên post type dạng số nhiều
+    'name' => 'Quản lý ản phẩm', //Tên post type dạng số nhiều
     'singular_name' => 'products' //Tên post type dạng số ít
   );
 /*
