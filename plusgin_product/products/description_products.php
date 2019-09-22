@@ -27,7 +27,7 @@ function gallery_meta_callback($post) {
 	<table class="form-table">
 		<tr><td>
 			<a class="gallery-add button" href="#" data-uploader-title="Thêm hình ảnh" data-uploader-button-text="Thêm nhiều hình ảnh">Thêm nhiều hình ảnh</a>
-			<ul id="gallery-metabox-list">
+			<ul id="gallery-metabox-list" class="gallery-metabox-list">
 				<?php if ($ids) : foreach ($ids as $key => $value) : $image = wp_get_attachment_image_src($value); ?>
 					<li>
 						<input type="hidden" name="tdc_gallery_id[<?php echo $key; ?>]" value="<?php echo $value; ?>">
@@ -56,8 +56,8 @@ function gallery_meta_callback($post) {
 	add_action('save_post', 'gallery_meta_save');
 
 	function gallery_enqueue_hook($hook) {
-		wp_enqueue_script('gallery-metabox', get_template_directory_uri() . '/public/js/gallery-metabox.js', array('jquery', 'jquery-ui-sortable'));
-		wp_enqueue_style('gallery-metabox', get_template_directory_uri() . '/public/css/gallery_metabox.css');
+		wp_enqueue_script('gallery-metaboxs', get_template_directory_uri() . '/public/js/gallery-metabox.js', array('jquery', 'jquery-ui-sortable'));
+		wp_enqueue_style('gallery-metaboxs', get_template_directory_uri() . '/public/css/gallery-metabox.css.css');
 	}
 	add_action('admin_enqueue_scripts', 'gallery_enqueue_hook');
 
