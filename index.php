@@ -2,7 +2,6 @@
 get_header();
 ?>
 <div class="warap">
-
     <section class="slideshow">
         <?php
         $args = array(
@@ -45,79 +44,6 @@ get_header();
             <p>Không có tin nào !</p>
         <?php endif;
         wp_reset_postdata(); ?>
-        <!-- <div class="item_slick item_slick_1 ">
-                <div class="main_info_slide animated">
-                    <div class="box_infomation">
-                        <h3 class="title_1">Áo Thun Nữ</h3>
-                        <ul class="list_color aothun">
-                            <li class=""># Mã màu </li>
-                            <li class="color color01"></li>
-                            <li class="color color02"></li>
-                            <li class="color color03"></li>
-                            <li class="color color04"></li>
-                        </ul>
-                        <div class="size_ao">
-                            <span>Size:</span> M - S - L - XL - XXL
-                        </div>
-                        <div class="box_readmore">
-                            <a href="" class="btn01">
-                                Chi tiết
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="item_slick item_slick_2">
-                <div class="main_info_slide">
-                    <div class="box_infomation">
-                        <h3 class="title_1">Áo Khoác</h3>
-                        <ul class="list_color aothun">
-                            <li class=""># Mã màu </li>
-                            <li class="color color01"></li>
-                            <li class="color color02"></li>
-                            <li class="color color03"></li>
-                            <li class="color color04"></li>
-                        </ul>
-                        <div class="size_ao">
-                            <span>Size:</span> M - S - L - XL - XXL
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="item_slick item_slick_3">
-                <div class="main_info_slide">
-                    <div class="box_infomation">
-                        <h3 class="title_1">Quần Jean</h3>
-                        <ul class="list_color aothun">
-                            <li class=""># Mã màu </li>
-                            <li class="color color01"></li>
-                            <li class="color color02"></li>
-                            <li class="color color03"></li>
-                            <li class="color color04"></li>
-                        </ul>
-                        <div class="size_ao">
-                            <span>Size:</span> M - S - L - XL - XXL
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="item_slick item_slick_4">
-                <div class="main_info_slide">
-                    <div class="box_infomation">
-                        <h3 class="title_1">Quần Jogger</h3>
-                        <ul class="list_color aothun">
-                            <li class=""># Mã màu </li>
-                            <li class="color color01"></li>
-                            <li class="color color02"></li>
-                            <li class="color color03"></li>
-                            <li class="color color04"></li>
-                        </ul>
-                        <div class="size_ao">
-                            <span>Size:</span> M - S - L - XL - XXL
-                        </div>
-                    </div>
-                </div>
-            </div> -->
     </section>
     <section class="main_content home product">
         <div class="container">
@@ -126,218 +52,92 @@ get_header();
             </div>
             <div class="control_tabs_product">
                 <ul class="tabs_product">
-                    <li class="item_tabs active" data-tabs="1">Quần Jeans</li>
-                    <li class="item_tabs" data-tabs="2">Áo thun</li>
-                    <li class="item_tabs" data-tabs="3">Quần Jogger</li>
-                    <li class="item_tabs" data-tabs="4">Áo khoác</li>
+        <?php $all_categories = get_categories( $args );
+        $i = 1;
+        foreach ( $all_categories as $category ) {
+            ?>
+            <li class="item_tabs" id="item_tabs" data-id-cate="<?php echo $category->term_id;?>" data-tabs="<?php echo($i++);?>"><?php echo $category->name;?></li>
+             <?php
+        }
+        ?>
+        <script type="text/javascript">
+        $(document).ready(function () {
+            $('.item_tabs').on('click', function () {
+                
+                var ID_CATE = $(this).attr('data-id-cate');
+                // console.log(ID_CATE);
+                $('.product_main ').removeClass('fadeIn');
+                $.ajax({
+                    type : "post", //Phương thức truyền post hoặc get
+                    dataType : "json", //Dạng dữ liệu trả về xml, json, script, or html
+                    url : '<?php echo admin_url('admin-ajax.php');?>', //Đường dẫn chứa hàm xử lý dữ liệu. Mặc định của WP như vậy
+                    data : {
+                        action: "get_post_by_cate", //Tên action
+                        'id_category' : ID_CATE
+                    },
+                    context: this,
+                    beforeSend: function(){
+                        //Làm gì đó trước khi gửi dữ liệu vào xử lý
+                    },
+                    success: function(response) {
+                        //Làm gì đó khi dữ liệu đã được xử lý
+                        $('.product_main ').addClass('fadeIn');
+                        if(response.success) {
+                            // alert(response.data);
+                            var data = response.data;
+                            // var html = "<option value='0'>--Phường/xã--</option>";
+                            // data.forEach(function (item) {
+                            //     console.log(item);
+                            // html += "<option value='" + item.name + "' data_id_huyen ='"+item.term_id+"'>" + item.name + "</option>";
+                            // });
+                            // console.log(response.data);
+                            $('.product_main ').html(data);
+                        }
+                        else {
+                        	alert('Đã có lỗi xảy ra');
+                        }
+                    },
+                    error: function( jqXHR, textStatus, errorThrown ){
+                        //Làm gì đó khi có lỗi xảy ra
+                        console.log( 'The following error occured: ' + textStatus, errorThrown );
+                    }
+                })
+				return false;
+            });
+        })
+        </script>
                 </ul>
             </div>
         </div>
         <div class="box_product">
-            <div class="product_main active" id="product_1">
-                <div class="item_product ">
-                    <figure class="product_thumb">
-                        <img src="<?php echo get_template_directory_uri() ?>/public/images/product/jogger/1.jpg" class="thumb" />
-                    </figure>
+            <div class="product_main active animated" id="product_1">
+            <?php
+        $args = array(
+            'post_type' => 'post_product',
+            'showposts' => 6,
+            'cat' => 17,
+            'order'    => 'DESC'
+        );
+        $the_query = new WP_Query($args);
+        if ($the_query->have_posts()) : while ($the_query->have_posts()) : $the_query->the_post();
+            $post_id = $post->ID;
+            $color_Product = get_post_meta(get_the_ID(), '_color_Product', TRUE);
+            $size_Product = get_post_meta(get_the_ID(), '_size_Product', TRUE);
+            ?>
+            <div class="item_product ">
+                <figure class="product_thumb">
+                <img class="thumb" src="<?php  echo get_the_post_thumbnail_url($post_id, 'large');?>" alt="<?php echo the_title()?>"/>
+                </figure>
                     <div class="ovelay_product"></div>
                     <div class="box_control_product">
-                        <a href="chitiet.html" class="btn_product">Chi tiết</a>
-                    </div>
-                </div>
-                <div class="item_product">
-                    <figure class="product_thumb">
-                        <img src="<?php echo get_template_directory_uri() ?>/public/images/product/jogger/2.jpg" class="thumb" />
-                    </figure>
-                    <div class="ovelay_product"></div>
-                    <div class="box_control_product">
-                        <a href="chitiet.html" class="btn_product">Chi tiết</a>
-                    </div>
-                </div>
-                <div class="item_product">
-                    <figure class="product_thumb">
-                        <img src="<?php echo get_template_directory_uri() ?>/public/images/product/jogger/3.jpeg" class="thumb" />
-                    </figure>
-                    <div class="ovelay_product"></div>
-                    <div class="box_control_product">
-                        <a href="chitiet.html" class="btn_product">Chi tiết</a>
-                    </div>
-                </div>
-                <div class="item_product">
-                    <figure class="product_thumb">
-                        <img src="<?php echo get_template_directory_uri() ?>/public/images/product/jogger/4.jpg" class="thumb" />
-                    </figure>
-                    <div class="ovelay_product"></div>
-                    <div class="box_control_product">
-                        <a href="chitiet.html" class="btn_product">Chi tiết</a>
-                    </div>
-                </div>
-                <div class="item_product">
-                    <figure class="product_thumb">
-                        <img src="<?php echo get_template_directory_uri() ?>/public/images/product/jogger/n1.jpg" class="thumb" />
-                    </figure>
-                    <div class="ovelay_product"></div>
-                    <div class="box_control_product">
-                        <a href="chitiet.html" class="btn_product">Chi tiết</a>
-                    </div>
-                </div>
-                <div class="item_product">
-                    <figure class="product_thumb">
-                        <img src="<?php echo get_template_directory_uri() ?>/public/images/product/jogger/n2.jpg" class="thumb" />
-                    </figure>
-                    <div class="ovelay_product"></div>
-                    <div class="box_control_product">
-                        <a href="chitiet.html" class="btn_product">Chi tiết</a>
-                    </div>
-                </div>
-                <div class="item_product">
-                    <figure class="product_thumb">
-                        <img src="<?php echo get_template_directory_uri() ?>/public/images/product/jogger/n3.jpg" class="thumb" />
-                    </figure>
-                    <div class="ovelay_product"></div>
-                    <div class="box_control_product">
-                        <a href="chitiet.html" class="btn_product">Chi tiết</a>
-                    </div>
-                </div>
-                <div class="item_product">
-                    <figure class="product_thumb">
-                        <img src="<?php echo get_template_directory_uri() ?>/public/images/product/jogger/n4.jpg" class="thumb" />
-                    </figure>
-                    <div class="ovelay_product"></div>
-                    <div class="box_control_product">
-                        <a href="chitiet.html" class="btn_product">Chi tiết</a>
-                    </div>
+                    <a href="<?php echo the_permalink(); ?>" class="btn_product">Chi tiết</a>
                 </div>
             </div>
-            <!-- tabs item -->
-            <div class="product_main " id="product_2">
-                <div class="item_product ">
-                    <figure class="product_thumb">
-                        <img src="<?php echo get_template_directory_uri() ?>/public/images/product/aothun/1.jpg" class="thumb" />
-                    </figure>
-                </div>
-                <div class="item_product">
-                    <figure class="product_thumb">
-                        <img src="<?php echo get_template_directory_uri() ?>/public/images/product/aokhoac/2.jpg" class="thumb" />
-                    </figure>
-                </div>
-                <div class="item_product">
-                    <figure class="product_thumb">
-                        <img src="<?php echo get_template_directory_uri() ?>/public/images/product/aothun/3.jpg" class="thumb" />
-                    </figure>
-                </div>
-                <div class="item_product">
-                    <figure class="product_thumb">
-                        <img src="<?php echo get_template_directory_uri() ?>/public/images/product/aothun/4.jpg" class="thumb" />
-                    </figure>
-                </div>
-                <div class="item_product ">
-                    <figure class="product_thumb">
-                        <img src="<?php echo get_template_directory_uri() ?>/public/images/product/aothun/1.jpg" class="thumb" />
-                    </figure>
-                </div>
-                <div class="item_product">
-                    <figure class="product_thumb">
-                        <img src="<?php echo get_template_directory_uri() ?>/public/images/product/aokhoac/2.jpg" class="thumb" />
-                    </figure>
-                </div>
-                <div class="item_product">
-                    <figure class="product_thumb">
-                        <img src="<?php echo get_template_directory_uri() ?>/public/images/product/aothun/3.jpg" class="thumb" />
-                    </figure>
-                </div>
-                <div class="item_product">
-                    <figure class="product_thumb">
-                        <img src="<?php echo get_template_directory_uri() ?>/public/images/product/aothun/4.jpg" class="thumb" />
-                    </figure>
-                </div>
-            </div>
-            <!-- tabs item -->
-            <div class="product_main " id="product_3">
-                <div class="item_product ">
-                    <figure class="product_thumb">
-                        <img src="<?php echo get_template_directory_uri() ?>/public/images/product/quanjens/1.jpg" class="thumb" />
-                    </figure>
-                </div>
-                <div class="item_product">
-                    <figure class="product_thumb">
-                        <img src="<?php echo get_template_directory_uri() ?>/public/images/product/quanjens/2.jpg" class="thumb" />
-                    </figure>
-                </div>
-                <div class="item_product">
-                    <figure class="product_thumb">
-                        <img src="<?php echo get_template_directory_uri() ?>/public/images/product/quanjens/3.jpg" class="thumb" />
-                    </figure>
-                </div>
-                <div class="item_product">
-                    <figure class="product_thumb">
-                        <img src="<?php echo get_template_directory_uri() ?>/public/images/product/quanjens/4.jpg" class="thumb" />
-                    </figure>
-                </div>
-                <div class="item_product ">
-                    <figure class="product_thumb">
-                        <img src="<?php echo get_template_directory_uri() ?>/public/images/product/quanjens/1.jpg" class="thumb" />
-                    </figure>
-                </div>
-                <div class="item_product">
-                    <figure class="product_thumb">
-                        <img src="<?php echo get_template_directory_uri() ?>/public/images/product/quanjens/2.jpg" class="thumb" />
-                    </figure>
-                </div>
-                <div class="item_product">
-                    <figure class="product_thumb">
-                        <img src="<?php echo get_template_directory_uri() ?>/public/images/product/quanjens/3.jpg" class="thumb" />
-                    </figure>
-                </div>
-                <div class="item_product">
-                    <figure class="product_thumb">
-                        <img src="<?php echo get_template_directory_uri() ?>/public/images/product/quanjens/4.jpg" class="thumb" />
-                    </figure>
-                </div>
-            </div>
-            <!-- tabs item -->
-            <div class="product_main " id="product_4">
-                <div class="item_product ">
-                    <figure class="product_thumb">
-                        <img src="<?php echo get_template_directory_uri() ?>/public/images/product/jogger/1.jpg" class="thumb" />
-                    </figure>
-                </div>
-                <div class="item_product">
-                    <figure class="product_thumb">
-                        <img src="<?php echo get_template_directory_uri() ?>/public/images/product/jogger/2.jpg" class="thumb" />
-                    </figure>
-                </div>
-                <div class="item_product">
-                    <figure class="product_thumb">
-                        <img src="<?php echo get_template_directory_uri() ?>/public/images/product/jogger/3.jpeg" class="thumb" />
-                    </figure>
-                </div>
-                <div class="item_product">
-                    <figure class="product_thumb">
-                        <img src="<?php echo get_template_directory_uri() ?>/public/images/product/jogger/4.jpg" class="thumb" />
-                    </figure>
-                </div>
-                <div class="item_product">
-                    <figure class="product_thumb">
-                        <img src="<?php echo get_template_directory_uri() ?>/public/images/product/jogger/n1.jpg" class="thumb" />
-                    </figure>
-                </div>
-                <div class="item_product">
-                    <figure class="product_thumb">
-                        <img src="<?php echo get_template_directory_uri() ?>/public/images/product/jogger/n2.jpg" class="thumb" />
-                    </figure>
-                </div>
-                <div class="item_product">
-                    <figure class="product_thumb">
-                        <img src="<?php echo get_template_directory_uri() ?>/public/images/product/jogger/n3.jpg" class="thumb" />
-                    </figure>
-                </div>
-                <div class="item_product">
-                    <figure class="product_thumb">
-                        <img src="<?php echo get_template_directory_uri() ?>/public/images/product/jogger/n4.jpg" class="thumb" />
-                    </figure>
-                </div>
-            </div>
-            <!-- tabs item -->
+                 <?php endwhile;
+            else : ?>
+            <p>Không có tin nào !</p>
+        <?php endif;
+        wp_reset_postdata(); ?>
         </div>
     </section>
     <section class="customer_feedback">

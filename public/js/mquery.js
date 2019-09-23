@@ -8,6 +8,18 @@ $(document).ready(function () {
         nextArrow: '<button class="slick-arrow slick-next"></button>',
         prevArrow: '<button class="slick-arrow slick-prev"></button>',
     });
+    $('.slideimg').slick({
+        dots: false,
+        infinite: false,
+        speed: 300,
+        slidesToShow: 1,
+        autoplay: true,
+        autoplaySpeed: 2000,
+        slidesToScroll: 1,
+        nextArrow: '<button class="slick-arrow slick-next"></button>',
+        prevArrow: '<button class="slick-arrow slick-prev"></button>',
+    });
+
     $('.box_slide_feedback').slick({
         dots: false,
         infinite: false,

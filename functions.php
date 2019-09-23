@@ -38,10 +38,6 @@ if ( !function_exists( 'herozuzu_setup' ) ):
     add_theme_support( 'post-thumbnails' );
     add_image_size( 'large-thumbnail', 1118, 538, true );
     add_image_size( 'images_project', 1000, 440, true );
-    add_image_size( 'square_smallb_thumbnail', 250, 250, true );
-    add_image_size( 'square_smallc_thumbnail', 210, 160, true );
-    add_image_size( 'square_smalld_thumbnail', 120, 90, true );
-    add_image_size( 'square_news_thumbnail', 82, 82, true );
   }
   add_action( 'after_setup_theme', 'herozuzu_setup' );
 endif;
@@ -129,7 +125,7 @@ function manager_product()
  * Biến $label để chứa các text liên quan đến tên hiển thị của Post Type trong Admin
  */
 $label = array(
-    'name' => 'Quản lý ản phẩm', //Tên post type dạng số nhiều
+    'name' => 'Quản lý sản phẩm', //Tên post type dạng số nhiều
     'singular_name' => 'products' //Tên post type dạng số ít
   );
 /*
@@ -214,3 +210,69 @@ function color_taxonomy() {
 );
  register_taxonomy( 'color', array( 'post_product' ), $args );
 }
+
+// ==============FUNCTION AJAX ==============
+add_action( 'wp_ajax_get_post_by_cate', 'get_post_by_cate_init' );
+add_action( 'wp_ajax_nopriv_get_post_by_cate', 'get_post_by_cate_init' );
+function get_post_by_cate_init() {
+ 
+    //do bên js để dạng json nên giá trị trả về dùng phải encode
+    $id_cate = (isset($_POST['id_category']))?esc_attr($_POST['id_category']) : '';
+    ob_start(); //bắt đầu bộ nhớ đệm
+    $post_new = new WP_Query(array(
+      'post_type' =>  'post_product',
+      'posts_per_page'    =>  '8',
+      'cat' => $id_cate
+  ));
+  if($post_new->have_posts()):
+   
+    // echo '<div class="item_product ">';
+        while($post_new->have_posts()):$post_new->the_post();
+          echo '<div class="item_product ">';
+          echo '<figure class="product_thumb">';
+          echo '<img class="thumb" src="'.get_the_post_thumbnail_url($post_new->ID, 'large').'" alt="'.get_the_title().'"/>';  
+          echo '</figure>
+          <div class="ovelay_product"></div>
+          <div class="box_control_product">';
+          echo '<a href="'.get_the_permalink().'" class="btn_product">Chi tiết</a>';
+          echo '</div>';
+          echo '</div>';
+        endwhile;
+endif; wp_reset_query();
+$result = ob_get_clean(); //cho hết bộ nhớ đệm vào biến $result
+wp_send_json_success($result); // trả về giá trị dạng json
+    die();//bắt buộc phải có khi kết thúc
+}
+
+
+function the_breadcrumb() {
+  echo '<nav id="breadcrumb" class="breadcrumb">';
+if (!is_home()) {
+  echo '<a href="';
+  echo get_option('home');
+  echo '">';
+  echo 'Trang chủ';
+  echo "</a>";
+  if (is_category() || is_single()) {
+          the_category('  ');
+          if (is_single()) {
+                  the_title('  ');
+          }
+  } elseif (is_page()) {
+          echo the_title('  ');
+  }
+}
+elseif (is_tag()) {single_tag_title();}
+elseif (is_day()) {echo"<li>Archive for "; the_time('F jS, Y'); echo'</li>';}
+elseif (is_month()) {echo"<li>Archive for "; the_time('F, Y'); echo'</li>';}
+elseif (is_year()) {echo"<li>Archive for "; the_time('Y'); echo'</li>';}
+elseif (is_author()) {echo"<li>Author Archive"; echo'</li>';}
+elseif (isset($_GET['paged']) && !empty($_GET['paged'])) {echo "<li>Blog Archives"; echo'</li>';}
+elseif (is_search()) {echo"<li>Search Results"; echo'</li>';}
+echo '</nav>';
+}
+//  <nav class="breadcrumb">
+// <a href="">Trang chủ</a>
+// <a href="">Áo thun nữ</a>
+// <span>Áo thun cổ tròn</span>
+// </nav>
