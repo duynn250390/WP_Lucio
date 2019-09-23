@@ -254,9 +254,9 @@ if (!is_home()) {
   echo 'Trang chủ';
   echo "</a>";
   if (is_category() || is_single()) {
-          the_category('  ');
+          the_category();
           if (is_single()) {
-                  the_title('  ');
+                 the_title('  ');
           }
   } elseif (is_page()) {
           echo the_title('  ');

@@ -104,7 +104,7 @@ get_header();
                 })
 				return false;
             });
-        })
+        });
         </script>
                 </ul>
             </div>
@@ -114,8 +114,8 @@ get_header();
             <?php
         $args = array(
             'post_type' => 'post_product',
-            'showposts' => 6,
-            'cat' => 17,
+            'showposts' => 8,
+            // 'cat' => 17,
             'order'    => 'DESC'
         );
         $the_query = new WP_Query($args);
