@@ -269,7 +269,6 @@ body {
     display: grid;
     grid-template-columns: repeat(10, 72px);
     grid-column-gap: 10px;
-    margin-top: 1em;
     align-items: center;
     @include maxWidth(980px) {
         grid-column-gap: 5px;
@@ -1187,18 +1186,14 @@ body {
             .btn_order {
                 font-size: px2em(14);
                 cursor: pointer;
-                padding: 1em 2em;
+                padding: 0.5em 1em;
                 border: none;
-                background: #666666;
+                background: $colMain;
                 color: #fff;
                 outline: none;
                 text-decoration: none;
                 outline: none;
                 @include tran_slow_03();
-                @include hofo() {
-                    background: $colMain;
-                    color: #fff;
-                }
             }
         }
         .box_info_customer {
@@ -1256,22 +1251,39 @@ input[type="text"] {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         grid-gap: 1em;
+        align-items: center;
         .item_info {
             grid-column: 2 span;
             span {
                 font-weight: 600;
+                min-width: 80px;
+                display: inline-block;
             }
             .sum_info {
                 display: flex;
                 flex-direction: row;
                 align-items: center;
                 .count {
-                    margin-left: 1em;
                     select {
                         height: 30px;
                         width: 100px;
                         border: 1px solid #ccc;
                     }
+                }
+            }
+        }
+        .item_info.full_item {
+            grid-column: 4 span;
+            padding: 0.5em 0;
+            border-top: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+            .item_list_full {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                grid-row-gap: 0.2em;
+                grid-column-gap: 1em;
+                .item_info {
+                    grid-column: 2 span;
                 }
             }
         }

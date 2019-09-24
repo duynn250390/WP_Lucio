@@ -8210,7 +8210,6 @@ body {
   display: grid;
   grid-template-columns: repeat(10, 72px);
   grid-column-gap: 10px;
-  margin-top: 1em;
   align-items: center; }
   @media only screen and (max-width: 980px) {
     .list_color {
@@ -9047,9 +9046,9 @@ body {
       .box_order .form_order .box_order_action .btn_order {
         font-size: 1em;
         cursor: pointer;
-        padding: 1em 2em;
+        padding: 0.5em 1em;
         border: none;
-        background: #666666;
+        background: #e44a7a;
         color: #fff;
         outline: none;
         text-decoration: none;
@@ -9057,9 +9056,6 @@ body {
         -webkit-transition: all 0.3s ease-in-out 0s;
         -o-transition: all 0.3s ease-in-out 0s;
         transition: all 0.3s ease-in-out 0s; }
-        .box_order .form_order .box_order_action .btn_order:hover, .box_order .form_order .box_order_action .btn_order:focus {
-          background: #e44a7a;
-          color: #fff; }
     .box_order .form_order .box_info_customer .box_gender {
       display: flex;
       flex-direction: row; }
@@ -9108,21 +9104,34 @@ input[type="text"] {
   .box_info_product .info_pro {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-gap: 1em; }
+    grid-gap: 1em;
+    align-items: center; }
     .box_info_product .info_pro .item_info {
       grid-column: 2 span; }
       .box_info_product .info_pro .item_info span {
-        font-weight: 600; }
+        font-weight: 600;
+        min-width: 80px;
+        display: inline-block; }
       .box_info_product .info_pro .item_info .sum_info {
         display: flex;
         flex-direction: row;
         align-items: center; }
-        .box_info_product .info_pro .item_info .sum_info .count {
-          margin-left: 1em; }
-          .box_info_product .info_pro .item_info .sum_info .count select {
-            height: 30px;
-            width: 100px;
-            border: 1px solid #ccc; }
+        .box_info_product .info_pro .item_info .sum_info .count select {
+          height: 30px;
+          width: 100px;
+          border: 1px solid #ccc; }
+    .box_info_product .info_pro .item_info.full_item {
+      grid-column: 4 span;
+      padding: 0.5em 0;
+      border-top: 1px solid #ccc;
+      border-bottom: 1px solid #ccc; }
+      .box_info_product .info_pro .item_info.full_item .item_list_full {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-row-gap: 0.2em;
+        grid-column-gap: 1em; }
+        .box_info_product .info_pro .item_info.full_item .item_list_full .item_info {
+          grid-column: 2 span; }
 
 .single {
   min-height: 800px; }

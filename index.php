@@ -85,14 +85,7 @@ get_header();
                                         //Làm gì đó khi dữ liệu đã được xử lý
                                         $('.product_main ').addClass('fadeIn');
                                         if (response.success) {
-                                            // alert(response.data);
                                             var data = response.data;
-                                            // var html = "<option value='0'>--Phường/xã--</option>";
-                                            // data.forEach(function (item) {
-                                            //     console.log(item);
-                                            // html += "<option value='" + item.name + "' data_id_huyen ='"+item.term_id+"'>" + item.name + "</option>";
-                                            // });
-                                            // console.log(response.data);
                                             $('.product_main ').html(data);
                                         } else {
                                             alert('Đã có lỗi xảy ra');
@@ -167,46 +160,6 @@ get_header();
                 <p>Không có tin nào !</p>
             <?php endif;
             wp_reset_postdata(); ?>
-            <!-- <div class="item_feedback">
-                <figure class="thum_feedback">
-                    <img src="<?php echo get_template_directory_uri() ?>/public/images/feedback/2.jpg" class="thumb" alt="Feedback" />
-                </figure>
-            </div>
-            <div class="item_feedback">
-                <figure class="thum_feedback">
-                    <img src="<?php echo get_template_directory_uri() ?>/public/images/feedback/3.jpg" class="thumb" alt="Feedback" />
-                </figure>
-            </div>
-            <div class="item_feedback">
-                <figure class="thum_feedback">
-                    <img src="<?php echo get_template_directory_uri() ?>/public/images/feedback/4.jpg" class="thumb" alt="Feedback" />
-                </figure>
-            </div>
-            <div class="item_feedback">
-                <figure class="thum_feedback">
-                    <img src="<?php echo get_template_directory_uri() ?>/public/images/feedback/5.jpg" class="thumb" alt="Feedback" />
-                </figure>
-            </div>
-            <div class="item_feedback">
-                <figure class="thum_feedback">
-                    <img src="<?php echo get_template_directory_uri() ?>/public/images/feedback/6.jpg" class="thumb" alt="Feedback" />
-                </figure>
-            </div>
-            <div class="item_feedback">
-                <figure class="thum_feedback">
-                    <img src="<?php echo get_template_directory_uri() ?>/public/images/feedback/7.png" class="thumb" alt="Feedback" />
-                </figure>
-            </div>
-            <div class="item_feedback">
-                <figure class="thum_feedback">
-                    <img src="<?php echo get_template_directory_uri() ?>/public/images/feedback/8.jpg" class="thumb" alt="Feedback" />
-                </figure>
-            </div>
-            <div class="item_feedback">
-                <figure class="thum_feedback">
-                    <img src="<?php echo get_template_directory_uri() ?>/public/images/feedback/9.jpg" class="thumb" alt="Feedback" />
-                </figure>
-            </div> -->
         </div>
     </section>
 </div>

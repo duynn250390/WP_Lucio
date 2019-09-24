@@ -94,25 +94,19 @@
                 <label for="check_order" class="check_order_label">Bạn cần mua ?</label>
             </div>
             <div class="box_order">
-                <div class="box_heading">Đặt mua </div>
+                <div class="box_heading">Đặt mua NGAY </div>
                 <aside class="form_order">
                     <form action="" method="post">
                         <div class="box_info_product">
-                            <ul class="info_pro">
-                                <li class="item_info">
-                                    <span>Sản phẩm cần mua:</span> Áo thun cổ tròn
-                                </li>
-                                <li class="item_info">
-                                    <span>Màu áo:</span> Màu Đỏ Đô
-                                </li>
-                                <li class="item_info">
-                                    <span>Size:</span> S
-                                </li>
-                                <li class="item_info">
+                            <div class="info_pro">
+                                <div class="item_info">
+                                    <span>Sản phẩm:</span> <?php the_title(); ?>
+                                </div>
+                                <div class="item_info ">
                                     <div class="sum_info">
                                         <div class="name"><span>Số lượng:</span></div>
                                         <div class="count">
-                                            <select>
+                                            <select class="so_luong" id="so_luong" data-money=" <?php $gia_tien =  get_post_meta(get_the_ID(), '_gia_tien', TRUE); echo  $gia_tien;?>" data-id-content="<?php echo $post->ID ?>">
                                                 <option value="1">1</option>
                                                 <option value="2">2</option>
                                                 <option value="3">3</option>
@@ -125,9 +119,49 @@
                                             </select>
                                         </div>
                                     </div>
-                                </li>
-                                <li class=" item_info sum_money">Tổng tiền: <span>100.000 VND</span></li>
-                            </ul>
+                                </div>
+                                <div class="full_item item_info">
+                                    <div class="item_list_full">
+                                        <div class="item_info">
+                                            <div class="item_info">
+                                                <div class="sum_info">
+                                                    <div class="name"><span>Màu:</span></div>
+                                                    <div class="count">
+                                                        <select class="list_color">
+                                                            <?php
+                                                            $terms = get_the_terms($post->ID, 'color');
+                                                            if (!empty($terms)) {
+                                                                foreach ($terms as $term) { ?>
+                                                                    <option value="<?php echo $term->name ?>"><?php echo $term->name ?></option>
+                                                            <?php }
+                                                            } ?>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item_info">
+                                            <div class="sum_info">
+                                                <div class="name"><span>Size:</span></div>
+                                                <div class="count">
+                                                    <select class="list_size">
+                                                        <?php
+                                                        $terms = get_the_terms($post->ID, 'size');
+                                                        if (!empty($terms)) {
+                                                            foreach ($terms as $term) { ?>
+                                                                <option value="<?php echo $term->name ?>"><?php echo $term->name ?></option>
+                                                        <?php }
+                                                        } ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class=" item_info sum_money">Tổng tiền: <b class="count_noney">
+                                        <?php $gia_tien =  get_post_meta(get_the_ID(), '_gia_tien', TRUE); echo  $gia_tien;?>
+                                                    </b> VND</div>
+                            </div>
                         </div>
                         <div class="box_info_customer">
                             <div class="box_gender form_control">
@@ -168,6 +202,74 @@
                             <button class="btn_order">Đặt Hàng ngay</button>
                         </div>
                     </form>
+                    <script type="text/javascript">
+                        $(document).on('change', '.so_luong', function() {
+                            var num_so_luong = this.value;
+                            var id_post = $(this).attr('data-id-content');
+                            var data_money = $(this).attr('data-money');
+                            var i;
+                            var html = '';
+                            var list_color = $('list_color').html();
+                            var tong_tien = num_so_luong * data_money;
+                            $('.count_noney').html(tong_tien);
+                            $.ajax({
+                                type: "post",
+                                dataType: "json",
+                                url: '<?php echo admin_url('admin-ajax.php'); ?>',
+                                data: {
+                                    action: "get_post_by_select", //Tên action
+                                    'id_post': id_post
+                                },
+                                context: this,
+                                success: function(response) {
+                                    //Làm gì đó khi dữ liệu đã được xử lý
+                                    if (response.success) {
+                                        var data = response.data;
+                                        var data_Size = data.size;
+                                        var data_Color = data.color;
+                                        var htmlSize = '';
+                                        var htmlColor = '';
+                                        data_Color.forEach(function(entrycl) {
+                                            htmlColor = htmlColor + ' <option value="8">' + entrycl.name + '</option>';
+                                        });
+                                        data_Size.forEach(function(entryS) {
+                                            htmlSize = htmlSize + ' <option value="8">' + entryS.name + '</option>';
+                                        });
+                                        $('.list_si').html(htmlSize);
+                                        $('.list_cl').html(htmlColor);
+                                    } else {
+                                        alert('Đã có lỗi xảy ra');
+                                    }
+                                },
+                                error: function(jqXHR, textStatus, errorThrown) {
+                                    //Làm gì đó khi có lỗi xảy ra
+                                    // console.log('The following error occured: ' + textStatus, errorThrown);
+                                }
+                            });
+                            for (i = 1; i <= num_so_luong; i++) {
+
+                                html = html +
+                                    '<div class="item_info">' +
+                                    '<div class = "item_info" >' +
+                                    '<div class = "sum_info" >' +
+                                    '<div class = "name" > ' +
+                                    '<span> Màu Áo: </span></div >' +
+                                    '<div class = "count" >' +
+                                    '<select class="list_cl" > ' +
+                                    '<option value = "' +
+                                    i + '" >' + list_color + '</option>' +
+                                    '</select> </div > </div> </div > </div>' +
+                                    '<div class="item_info">' +
+                                    '<div class="sum_info">' +
+                                    '<div class="name"><span>Size Áo:</span></div>' +
+                                    '<div class="count">' +
+                                    '<select class="list_si">' +
+                                    '</select>' +
+                                    '</div></div></div>';
+                            }
+                            $('.item_list_full').html(html);
+                        });
+                    </script>
                 </aside>
             </div>
         </div>
