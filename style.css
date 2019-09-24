@@ -8900,7 +8900,7 @@ body {
             width: 40px;
             cursor: pointer;
             background: #e1e1e1;
-            border: 2px solid transparent;
+            border: 2px solid #e8e8e8;
             -webkit-transition: all 0.3s ease-in-out 0s;
             -o-transition: all 0.3s ease-in-out 0s;
             transition: all 0.3s ease-in-out 0s;
@@ -8941,8 +8941,8 @@ body {
             background: #00ffff; }
           .box_content_product .box_control.box_right .color_list .list_color_detail .color.cam-ngoi::before {
             background: #ff9966; }
-          .box_content_product .box_control.box_right .color_list .list_color_detail .color.mau::before {
-            background: #b30000; }
+          .box_content_product .box_control.box_right .color_list .list_color_detail .color.trang::before {
+            background: #fff; }
           .box_content_product .box_control.box_right .color_list .list_color_detail .color.mau::before {
             background: #b30000; }
           .box_content_product .box_control.box_right .color_list .list_color_detail .color.mau::before {
@@ -9180,3 +9180,40 @@ input[type="text"] {
       height: 30px;
       width: 30px;
       margin-right: 0.5em; }
+
+.container_box_list {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-gap: 1em; }
+  .container_box_list .list_item_post {
+    grid-column: 4 span;
+    border: 1px solid #ccc;
+    display: flex;
+    flex-direction: column; }
+    .container_box_list .list_item_post .thumb_post {
+      display: flex;
+      flex-direction: column;
+      justify-content: center; }
+      .container_box_list .list_item_post .thumb_post a {
+        width: 100%;
+        height: 500px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center; }
+        .container_box_list .list_item_post .thumb_post a img {
+          max-width: 100%;
+          height: 100%;
+          object-fit: cover; }
+    .container_box_list .list_item_post .description_fashion {
+      padding: 1em 0.5em;
+      display: flex;
+      flex-direction: column; }
+      .container_box_list .list_item_post .description_fashion .title {
+        text-transform: uppercase;
+        font-size: 1.14286em;
+        font-weight: 600;
+        margin-bottom: 0.5em; }
+      .container_box_list .list_item_post .description_fashion .money {
+        text-transform: uppercase;
+        font-size: 1.14286em;
+        color: #e44a7a; }
