@@ -217,8 +217,56 @@ function color_taxonomy()
   register_taxonomy('color', array('post_product'), $args);
 }
 // ==============FUNCTION AJAX ==============
+add_action('wp_ajax_add_order', 'add_order_init');
+add_action('wp_ajax_nopriv_add_order', 'add_order_init');
+$mau_ao = [];
+function add_order_init()
+{
+  // $array_send = (isset($_POST['array_send'])) ? esc_attr($_POST['array_send']) : '';
+  $ten_san_pham = (isset($_POST['ten_san_pham'])) ? esc_attr($_POST['ten_san_pham']) : '';
+  $so_luong = (isset($_POST['so_luong'])) ? esc_attr($_POST['so_luong']) : '';
+  $tong_tien = (isset($_POST['tong_tien'])) ? esc_attr($_POST['tong_tien']) : '';
+  $mau_ao = $_POST['mau_ao'];
+  $gioi_tinh = (isset($_POST['gioi_tinh'])) ? esc_attr($_POST['gioi_tinh']) : '';
+  $ho_ten = (isset($_POST['ho_ten'])) ? esc_attr($_POST['ho_ten']) : '';
+  $email = (isset($_POST['email'])) ? esc_attr($_POST['email']) : '';
+  $so_dien_thoai = (isset($_POST['so_dien_thoai'])) ? esc_attr($_POST['so_dien_thoai']) : '';
+  $dia_chi = (isset($_POST['dia_chi'])) ? esc_attr($_POST['dia_chi']) : '';
+  $ghi_chu = (isset($_POST['ghi_chu'])) ? esc_attr($_POST['ghi_chu']) : '';
+  global $wpdb;
+  $table_name = 'wp_order';
+  $table_name_info = 'wp_order_info';
+  $count_query = "select count(*) from $table_name";
+  $num = $wpdb->get_var($count_query);
+  $data_array = array(
+    'ten-san-pham' => $ten_san_pham,
+    'so-luong'   => $so_luong,
+    'tong-tien' => $tong_tien,
+    'gioi-tinh' => $gioi_tinh,
+    'ho-ten'   => $ho_ten,
+    'email' => $email,
+    'so-dien-thoai'   => $so_dien_thoai,
+    'dia-chi'   => $dia_chi,
+    'thong-tin' => $ghi_chu
+  );
+  $rowResult = $wpdb->insert($table_name, $data_array, $format = NULL);
+
+  for ($x = 0; $x <= count($mau_ao); $x++) {
+    $data_array_info = array(
+      'id_order' => $num + 1,
+      'mau' => $mau_ao[$x][mau],
+      'size' => $mau_ao[$x][size]
+    );
+
+    $wpdb->insert($table_name_info, $data_array_info, $format = NULL);
+  }
+  wp_send_json_success($mau_ao);
+  die();
+}
+
+// ==============FUNCTION AJAX ==============
 add_action('wp_ajax_get_post_by_select', 'get_post_by_select_init');
-add_action('wp_ajax_nopriv_get_post_by_selecte', 'get_post_by_select_init');
+add_action('wp_ajax_nopriv_get_post_by_selectet', 'get_post_by_select_init');
 function get_post_by_select_init()
 {
   $id_post = (isset($_POST['id_post'])) ? esc_attr($_POST['id_post']) : '';
@@ -228,28 +276,15 @@ function get_post_by_select_init()
     'p' => $id_post
   ));
   if ($post_new->have_posts()) :
-    // echo '<div class="item_product ">';
     while ($post_new->have_posts()) : $post_new->the_post();
       $terms_size = get_the_terms($post->ID, 'size');
       $terms_color = get_the_terms($post->ID, 'color');
       $result['size'] = $terms_size;
       $result['color'] =  $terms_color;
       echo $results;
-      // var_dump($terms_size);
-      // if (!empty($terms_size)) {
-      //   foreach ($terms_size as $termS) {
-      //      $result['size'] = $result['size'] + '<option value="' . $termS->name . '">' . $termS->name . '</option>';
-      //   }
-      // }
-      // if (!empty($terms_color)) {
-      //   foreach ($terms_color as $termC) {
-      //      $result['color'] =  $result['color'] + '<option value="' . $termC->name . '">' . $termC->name . '</option>';
-      //   }
-      // }
     endwhile;
   endif;
   wp_reset_query();
-  // $result = ob_get_clean(); //cho hết bộ nhớ đệm vào biến $result
   wp_send_json_success($result); // trả về giá trị dạng json
   die(); //bắt buộc phải có khi kết thúc
 }
