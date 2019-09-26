@@ -9189,6 +9189,16 @@ input[type="text"] {
     background-color: #d4edda;
     border-color: #c3e6cb; }
 
+.alert_validate {
+  display: flex;
+  justify-content: center;
+  font-weight: 1em;
+  padding: 0.5em;
+  color: red; }
+
+.sum_money .count_noney {
+  font-weight: 600; }
+
 .warap_article {
   padding: 3em 0; }
 
