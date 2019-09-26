@@ -216,6 +216,7 @@ function color_taxonomy()
   );
   register_taxonomy('color', array('post_product'), $args);
 }
+
 // ==============FUNCTION AJAX ==============
 add_action('wp_ajax_add_order', 'add_order_init');
 add_action('wp_ajax_nopriv_add_order', 'add_order_init');
@@ -239,15 +240,15 @@ function add_order_init()
   $count_query = "select count(*) from $table_name";
   $num = $wpdb->get_var($count_query);
   $data_array = array(
-    'ten-san-pham' => $ten_san_pham,
-    'so-luong'   => $so_luong,
-    'tong-tien' => $tong_tien,
-    'gioi-tinh' => $gioi_tinh,
-    'ho-ten'   => $ho_ten,
+    'ten_san_pham' => $ten_san_pham,
+    'so_luong'   => $so_luong,
+    'tong_tien' => $tong_tien,
+    'gioi_tinh' => $gioi_tinh,
+    'ho_ten'   => $ho_ten,
     'email' => $email,
-    'so-dien-thoai'   => $so_dien_thoai,
-    'dia-chi'   => $dia_chi,
-    'thong-tin' => $ghi_chu
+    'so_dien_thoai'   => $so_dien_thoai,
+    'dia_chi'   => $dia_chi,
+    'thong_tin' => $ghi_chu
   );
   $rowResult = $wpdb->insert($table_name, $data_array, $format = NULL);
 
