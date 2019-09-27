@@ -21,13 +21,6 @@ get_header();
                         <div class="box_infomation">
                             <h3 class="title_1"><?php the_title(); ?></h3>
                             <div class="size_slideshow"><?php echo $color_Product; ?></div>
-                            <!-- <ul class="list_color aothun">
-                            <li class=""># Mã màu </li>
-                            <li class="color color01"></li>
-                            <li class="color color02"></li>
-                            <li class="color color03"></li>
-                            <li class="color color04"></li>
-                        </ul> -->
                             <div class="size_ao">
                                 <span>Size:</span> <?php echo $size_Product; ?>
                             </div>
