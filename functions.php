@@ -248,7 +248,8 @@ function add_order_init()
     'email' => $email,
     'so_dien_thoai'   => $so_dien_thoai,
     'dia_chi'   => $dia_chi,
-    'thong_tin' => $ghi_chu
+    'thong_tin' => $ghi_chu,
+    'active' => '0'
   );
   $rowResult = $wpdb->insert($table_name, $data_array, $format = NULL);
 
