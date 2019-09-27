@@ -63,13 +63,6 @@
                     <?php  }
                     }
                     ?>
-                    <!--                        
-                            <li class="color mau1 active"></li>
-                            <li class="color mau2 "></li>
-                            <li class="color mau3 "></li>
-                            <li class="color mau4"></li>
-                            <li class="color mau5"></li>
-                            <li class="color mau6"></li> -->
                 </ul>
             </div>
             <div class="size_list list">
@@ -293,19 +286,17 @@
                             var get_so_dien_thoai = $('#get_so_dien_thoai').val();
                             var get_dia_chi = $('#get_dia_chi').val();
                             var get_so_luong = $("#so_luong option:selected").text();
-                            console.log(get_so_luong);
                             if (get_ho_ten == '' || get_email == '' || get_so_dien_thoai == '' || get_dia_chi == ''|| get_so_luong =='Chọn') {
                                 $('.alert_validate').html('Xảy ra lỗi ! Vui lòng nhập đầy đủ thông tin để việc xác nhận được nhanh và chính xác !');
                             } else {
-                                console.log('get_ho_ten');
-
+                                // console.log('get_ho_ten');
                                 $.ajax({
                                     type: "post",
                                     dataType: "json",
                                     async: true,
                                     url: '<?php echo admin_url('admin-ajax.php'); ?>',
                                     data: {
-                                        // action: "add_order",
+                                        action: "add_order",
                                         ten_san_pham: $('.ten_san_pham').attr('data-san-pham'),
                                         so_luong: $("#so_luong option:selected").text(),
                                         tong_tien: $('.count_noney').text(),
