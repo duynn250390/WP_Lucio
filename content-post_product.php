@@ -66,7 +66,7 @@
                 </ul>
             </div>
             <div class="size_list list">
-                <div class="title">Size</div>
+                <div class="title" id="checkSize">Size</div>
                 <ul class="list_size">
                     <?php
                     $terms = get_the_terms($post->ID, 'size');
@@ -86,7 +86,7 @@
                 <span class="checkmark"></span>
                 <label for="check_order" class="check_order_label">Bạn cần mua ?</label>
             </div>
-            <div class="alert alert_order"></div>
+
             <div class="box_order">
                 <div class="box_heading">Đặt mua NGAY </div>
                 <aside class="form_order">
@@ -235,7 +235,7 @@
                                         });
                                         $('.list_si').html(htmlSize);
                                         $('.list_cl').html(htmlColor);
-                                        console.log(data);
+                                        // console.log(data);
                                     } else {
                                         alert('Đã có lỗi xảy ra');
                                     }
@@ -286,14 +286,14 @@
                             var get_so_dien_thoai = $('#get_so_dien_thoai').val();
                             var get_dia_chi = $('#get_dia_chi').val();
                             var get_so_luong = $("#so_luong option:selected").text();
-                            if (get_ho_ten == '' || get_email == '' || get_so_dien_thoai == '' || get_dia_chi == ''|| get_so_luong =='Chọn') {
-                                $('.alert_validate').html('Xảy ra lỗi ! Vui lòng nhập đầy đủ thông tin để việc xác nhận được nhanh và chính xác !');
+                            if (get_ho_ten === '' || get_email === '' || get_so_dien_thoai === '' || get_dia_chi === '' || get_so_luong === 'Chọn') {
+                                $('.alert_validate').html('Xảy ra lỗi ! Vui lòng nhập đầy đủ thông tin để việc xác nhận được nhanh chóng và chính xác !');
                             } else {
-                                // console.log('get_ho_ten');
+                                $('.alert_validate').html('');
                                 $.ajax({
                                     type: "post",
                                     dataType: "json",
-                                    async: true,
+                                    // async: true,
                                     url: '<?php echo admin_url('admin-ajax.php'); ?>',
                                     data: {
                                         action: "add_order",
@@ -311,14 +311,7 @@
                                     context: this,
                                     success: function(response) {
                                         if (response.success) {
-                                            var box_order = $('.box_order');
-                                            box_order.css({
-                                                'height': '0',
-                                                'opacity': '0'
-                                            });
-                                            $('.in_control').val('');
-                                            $('.alert_order').show('slow');
-                                            $('.alert_order').html('Bạn đã đặt hàng thành công ! Chúng tôi sẽ liên hệ xác thực và giao hàng đến bạn sớm nhất. Xin cảm ơn !')
+
                                             console.log(response.data);
                                         } else {
                                             console.log('Đã có lỗi xảy ra');
@@ -328,11 +321,57 @@
                                         console.log('The following error occured: ' + textStatus, errorThrown);
                                     }
                                 });
+                                var box_order = $('.box_order');
+                                box_order.css({
+                                    'height': '0',
+                                    'opacity': '0'
+                                });
+                                $('.in_control').val('');
+                                $('.alert_order').show('slow');
+                                $('.alert_order').html('Bạn đã đặt hàng thành công ! Chúng tôi sẽ liên hệ xác thực và giao hàng đến bạn sớm nhất. Xin cảm ơn !')
                             }
                         });
                     </script>
                 </aside>
+
             </div>
+            <div class="alert alert_order hideMe"></div>
+        </div>
+    </div>
+</div>
+<div class="modal_show fade" id="modal_content_size">
+    <div class="dialog_modal">
+        <div class="modal_header">
+            <h3>Tư Vấn Size</h3>
+        </div>
+        <div class="box_now">
+            <section class="box_input_size">
+                <div class="item_size full">
+                    <select class="gioi_tinh fullcontrol">
+                        <option value="Nam">Chọn giới tính</option>
+                        <option value="Nam">Nam</option>
+                        <option value="Nữ">Nữ</option>
+                    </select>
+                </div>
+                <div class="item_size">
+                    <label for="get_height">Nhập Chiều Cao (cm)</label>
+                    <input class="fullcontrol get_height " name="get_height" id="get_height" type="number" placeholder="Nhập chiều cao">
+                </div>
+                <div class="item_size">
+                    <label for="get_weight">Nhập Cân Nặng (KG)</label>
+                    <input class="fullcontrol get_weight" name="get_weight" id="get_weight" type="number" placeholder="Nhập Cân nặng">
+                </div>
+                <div class="item_size full right">
+                    <button class="btn check" id="checkSizeFRONT">Kiểm tra</button>
+                </div>
+
+            </section>
+            <section class="result_size">
+                Bạn nên mặc Size: <span id="Size_RS"></span>
+            </section>
+        </div>
+        <div class="footer">
+            <span class="btn" id="closeModal">Close</span>
         </div>
     </div>
 </div>

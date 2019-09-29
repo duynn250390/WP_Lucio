@@ -20,10 +20,11 @@
                 <div class="item_box_ft box_footer02">
                     <div class="heading_title">Hỗ trợ khách hàng</div>
                     <ul class="list_menu_footer">
-                        <li class="item_menu"><a href="huong-dan-mua-hang.html">Hướng dẫn mua hàng</a></li>
-                        <li class="item_menu"> <a href="huong-dan-chon-size.html">Hướng dẫn chọn Size</a></li>
-                        <li class="item_menu"> <a href="chinh-sach-doi-tra.html">Chính sách đổi trả</a></li>
-                        <li class="item_menu"><a href="">Chính sách đại lý</a></li>
+                        <li class="item_menu"><a target="_bank" href="huong-dan-mua-hang-tai-lucio-shop">Hướng dẫn mua hàng</a></li>
+                        <li class="item_menu"> <a target="_bank" href="huong-dan-chon-size.html">Hướng dẫn chọn Size</a></li>
+                        <li class="item_menu"> <a target="_bank" href="chinh-sach-doi-tra.html">Chính sách đổi trả</a></li>
+                        <!-- <li class="item_menu"><a target="_bank" href="">Chính sách đại lý</a></li> -->
+                        <li class="item_menu"><a target="_bank" href="chinh-sach-bao-mat">Chính sách bảo mật</a></li>
                     </ul>
                 </div>
                 <div class="item_box_ft box_footer03">

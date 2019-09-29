@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
     $('.slideshow').slick({
         dots: false,
         infinite: false,
@@ -44,7 +45,7 @@ $(document).ready(function() {
         nextArrow: '<button class="slick-arrow slick-next"></button>',
         prevArrow: '<button class="slick-arrow slick-prev"></button>',
         responsive: [{
-                breakpoint: 1024,
+                breakpoint: 1200,
                 settings: {
                     slidesToShow: 4,
                     slidesToScroll: 4,
@@ -53,7 +54,7 @@ $(document).ready(function() {
                 }
             },
             {
-                breakpoint: 980,
+                breakpoint: 1025,
                 settings: {
                     slidesToShow: 3,
                     slidesToScroll: 3,
@@ -62,7 +63,16 @@ $(document).ready(function() {
                 }
             },
             {
-                breakpoint: 480,
+                breakpoint: 981,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2,
+                    infinite: true,
+                    dots: false
+                }
+            },
+            {
+                breakpoint: 481,
                 settings: {
                     slidesToShow: 1,
                     slidesToScroll: 1,
@@ -73,6 +83,19 @@ $(document).ready(function() {
         ]
     });
 });
+$(document).on('click', '#checkSize', function() {
+    $('#modal_content_size').css({
+        'display': 'block',
+    });
+    $('#modal_content_size').addClass('show');
+});
+$(document).on('click', '#closeModal', function() {
+    $('#modal_content_size').removeClass('show');
+    $('#modal_content_size').css({
+        'display': 'none',
+    });
+});
+
 $(document).on('click', '.list_color_detail .color', function() {
     $('.list_color_detail .color').removeClass('active');
     $(this).addClass('active');
@@ -100,18 +123,54 @@ $(document).on('click', '.list_size .size', function() {
     $('.list_size .size').removeClass('active');
     $(this).addClass('active');
 });
+$(document).on('click', '#checkSizeFRONT', function() {
+    var H = parseInt($('#get_height').val());
+    var W = parseInt($('#get_weight').val());
+    var Size = '';
+    if (H > 150 && H < 166) {
+        if (W > 40 && W < 50) {
+            console.log('S');
+            Size = 'S';
+        } else {
+            Size = 'M';
+            console.log('M');
+        }
+    }
+    if (H > 164 && H < 171) {
+        if (W > 49 && W < 60) {
+            Size = 'M';
+        } else if (W > 60 && W < 90) {
+            Size = 'XL';
+        } else {
+            Size = 'L';
+        }
+    }
+    if (H > 170 && H < 176) {
+        if (W > 60 && W < 70) {
+            Size = 'L';
+        } else {
+            Size = 'XL';
+        }
+    }
+    if (H > 175 && H < 200) {
+        Size = 'XL';
+    }
+    $('#Size_RS').html(Size);
+});
 // $(document).ready(function () {});
 $(document).on('click', '.buttlet_menu', function() {
     CONTROL_MODAL = {
         Body: $('body'),
         main_header: $('.main_header'),
         navigation: $('.menu-menu-header-container'),
+        data: $('.menu-menu-primary-container'),
     }
     CONTROL_MODAL.main_header.append('<div class="menu_ovelay"></div>');
     $('.menu_ovelay').css({
         'z-index': 9,
     });
-    var MENU_HTML = CONTROL_MODAL.navigation.html();
+    var MENU_HTML = CONTROL_MODAL.data.html();
+    console.log(MENU_HTML);
     // console.log(MENU_HTML);
     $('.mobile_menu').html(MENU_HTML);
     CONTROL_MODAL.Body.addClass('open_menu');

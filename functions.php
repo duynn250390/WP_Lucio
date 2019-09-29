@@ -234,11 +234,14 @@ function add_order_init()
   $so_dien_thoai = (isset($_POST['so_dien_thoai'])) ? esc_attr($_POST['so_dien_thoai']) : '';
   $dia_chi = (isset($_POST['dia_chi'])) ? esc_attr($_POST['dia_chi']) : '';
   $ghi_chu = (isset($_POST['ghi_chu'])) ? esc_attr($_POST['ghi_chu']) : '';
+  $dt = new DateTime();
+  $ngay_mua = $dt->format('Y-m-d H:i:s');
   global $wpdb;
   $table_name = 'wp_order';
   $table_name_info = 'wp_order_info';
   $count_query = "select count(*) from $table_name";
   $num = $wpdb->get_var($count_query);
+
   $data_array = array(
     'ten_san_pham' => $ten_san_pham,
     'so_luong'   => $so_luong,
@@ -249,10 +252,12 @@ function add_order_init()
     'so_dien_thoai'   => $so_dien_thoai,
     'dia_chi'   => $dia_chi,
     'thong_tin' => $ghi_chu,
+    'ngay_mua' => $ngay_mua,
     'active' => '0'
   );
-  $rowResult = $wpdb->insert($table_name, $data_array, $format = NULL);
-
+  $wpdb->insert($table_name, $data_array, $format = NULL);
+  $resu="okie";
+  echo ('tôt');
   for ($x = 0; $x <= count($mau_ao); $x++) {
     $data_array_info = array(
       'id_order' => $num + 1,

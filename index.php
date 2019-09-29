@@ -16,8 +16,18 @@ get_header();
                 $size_Product = get_post_meta(get_the_ID(), '_size_Product', TRUE);
                 ?>
                 <?php echo $color_Product; ?>
-                <div class="item_slick " style="background-image:url('<?php echo get_the_post_thumbnail_url($post_id, 'full'); ?>')">
-                    <div class="main_info_slide animated">
+                <div class="item_slick slide " style="">
+                    <img class="main_avatar_slide pc" src="<?php echo get_the_post_thumbnail_url($post_id, 'full'); ?>" alt="<?php the_title(); ?>"/>
+                    <?php
+                            $images = get_post_meta($post->ID, 'tdc_gallery_id', true);
+                            foreach ($images as $image) {
+                                $url_img =  wp_get_attachment_url($image, 'large');
+                                // $image_img = wp_get_attachment_image($image, 'large');
+                                ?>
+                                <img class="main_avatar_slide mb" src="<?php echo $url_img?>" alt="<?php the_title(); ?>"/>
+                            <?php } ?>
+                         
+                    <!-- <div class="main_info_slide animated">
                         <div class="box_infomation">
                             <h3 class="title_1"><?php the_title(); ?></h3>
                             <div class="size_slideshow"><?php echo $color_Product; ?></div>
@@ -30,7 +40,7 @@ get_header();
                                 </a>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             <?php endwhile;
             else : ?>
