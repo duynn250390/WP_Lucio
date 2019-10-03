@@ -17,16 +17,16 @@ get_header();
                 ?>
                 <?php echo $color_Product; ?>
                 <div class="item_slick slide " style="">
-                    <img class="main_avatar_slide pc" src="<?php echo get_the_post_thumbnail_url($post_id, 'full'); ?>" alt="<?php the_title(); ?>"/>
+                    <img class="main_avatar_slide pc" src="<?php echo get_the_post_thumbnail_url($post_id, 'full'); ?>" alt="<?php the_title(); ?>" />
                     <?php
                             $images = get_post_meta($post->ID, 'tdc_gallery_id', true);
                             foreach ($images as $image) {
                                 $url_img =  wp_get_attachment_url($image, 'large');
                                 // $image_img = wp_get_attachment_image($image, 'large');
                                 ?>
-                                <img class="main_avatar_slide mb" src="<?php echo $url_img?>" alt="<?php the_title(); ?>"/>
-                            <?php } ?>
-                         
+                        <img class="main_avatar_slide mb" src="<?php echo $url_img ?>" alt="<?php the_title(); ?>" />
+                    <?php } ?>
+
                     <!-- <div class="main_info_slide animated">
                         <div class="box_infomation">
                             <h3 class="title_1"><?php the_title(); ?></h3>
@@ -55,7 +55,7 @@ get_header();
             </div>
             <div class="control_tabs_product">
                 <ul class="tabs_product">
-                <li class="item_tabs active" id="item_tabs" data-id-cate="<?php echo $category->term_id; ?>" data-tabs="<?php echo ($i++); ?>">Tất cả</li>
+                    <li class="item_tabs active" id="item_tabs" data-id-cate="<?php echo $category->term_id; ?>" data-tabs="<?php echo ($i++); ?>">Tất cả</li>
                     <?php $all_categories = get_categories($args);
                     $i = 1;
                     foreach ($all_categories as $category) {
@@ -120,14 +120,23 @@ get_header();
                         $post_id = $post->ID;
                         $color_Product = get_post_meta(get_the_ID(), '_color_Product', TRUE);
                         $size_Product = get_post_meta(get_the_ID(), '_size_Product', TRUE);
+                        $gia_tien =  get_post_meta(get_the_ID(), '_gia_tien', TRUE);
                         ?>
                         <div class="item_product ">
                             <figure class="product_thumb">
-                                <img class="thumb" src="<?php echo get_the_post_thumbnail_url($post_id, 'large'); ?>" alt="<?php echo the_title() ?>" />
+                                <a href="<?php echo the_permalink(); ?>">
+                                    <img class="thumb" src="<?php echo get_the_post_thumbnail_url($post_id, 'large'); ?>" alt="<?php echo the_title() ?>" />
+                                </a>
                             </figure>
-                            <div class="ovelay_product"></div>
-                            <div class="box_control_product">
+                            <!-- <div class="ovelay_product"></div> -->
+                            <!-- <div class="box_control_product">
                                 <a href="<?php echo the_permalink(); ?>" class="btn_product">Chi tiết</a>
+                            </div> -->
+                            <div class="bot_info">
+                                <div class="title_top">
+                                    <h3 class="title_heading"><?php echo the_title(); ?></h3>
+                                </div>
+                                <span class="price"><?php echo  $gia_tien; ?> VND</span>
                             </div>
                         </div>
                     <?php endwhile;
@@ -155,7 +164,7 @@ get_header();
                     ?>
                     <div class="item_feedback">
                         <figure class="thum_feedback">
-                        <img class="thumb" src="<?php echo get_the_post_thumbnail_url($post->ID, 'large'); ?>" class="thumb" alt="<?php echo the_title() ?>" />
+                            <img class="thumb" src="<?php echo get_the_post_thumbnail_url($post->ID, 'large'); ?>" class="thumb" alt="<?php echo the_title() ?>" />
                         </figure>
                     </div>
                 <?php endwhile;

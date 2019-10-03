@@ -221,6 +221,14 @@ function color_taxonomy()
 add_action('wp_ajax_add_order', 'add_order_init');
 add_action('wp_ajax_nopriv_add_order', 'add_order_init');
 $mau_ao = [];
+function rand_string( $length ) {
+$chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+$size = strlen( $chars );
+for( $i = 0; $i < $length; $i++ ) {
+$str .= $chars[ rand( 0, $size - 1 ) ];
+ }
+return $str;
+}
 function add_order_init()
 {
   // $array_send = (isset($_POST['array_send'])) ? esc_attr($_POST['array_send']) : '';
@@ -241,6 +249,7 @@ function add_order_init()
   $table_name_info = 'wp_order_info';
   $count_query = "select count(*) from $table_name";
   $num = $wpdb->get_var($count_query);
+  $key_table = rand_string(10);
 
   $data_array = array(
     'ten_san_pham' => $ten_san_pham,
@@ -253,14 +262,14 @@ function add_order_init()
     'dia_chi'   => $dia_chi,
     'thong_tin' => $ghi_chu,
     'ngay_mua' => $ngay_mua,
+    'key_table' => $key_table,
     'active' => '0'
   );
   $wpdb->insert($table_name, $data_array, $format = NULL);
-  $resu="okie";
-  echo ('tôt');
+  $resu = "okie";
   for ($x = 0; $x <= count($mau_ao); $x++) {
     $data_array_info = array(
-      'id_order' => $num + 1,
+      'id_order' => $key_table,
       'mau' => $mau_ao[$x][mau],
       'size' => $mau_ao[$x][size]
     );
@@ -273,7 +282,7 @@ function add_order_init()
 
 // ==============FUNCTION AJAX ==============
 add_action('wp_ajax_get_post_by_select', 'get_post_by_select_init');
-add_action('wp_ajax_nopriv_get_post_by_selectet', 'get_post_by_select_init');
+add_action('wp_ajax_nopriv_get_post_by_select', 'get_post_by_select_init');
 function get_post_by_select_init()
 {
   $id_post = (isset($_POST['id_post'])) ? esc_attr($_POST['id_post']) : '';
@@ -315,13 +324,16 @@ function get_post_by_cate_init()
     while ($post_new->have_posts()) : $post_new->the_post();
       echo '<div class="item_product ">';
       echo '<figure class="product_thumb">';
+      echo ' <a href="' . get_the_permalink() . '">';
       echo '<img class="thumb" src="' . get_the_post_thumbnail_url($post_new->ID, 'large') . '" alt="' . get_the_title() . '"/>';
-      echo '</figure>
-          <div class="ovelay_product"></div>
-          <div class="box_control_product">';
-      echo '<a href="' . get_the_permalink() . '" class="btn_product">Chi tiết</a>';
-      echo '</div>';
-      echo '</div>';
+      echo '</a></figure>';
+      // <div class="ovelay_product"></div>
+      // <div class="box_control_product">';
+      // echo '<a href="' . get_the_permalink() . '" class="btn_product">Chi tiết</a>';
+      echo '<div class="bot_info">';
+      echo '<div class="title_top">';
+      echo '<h3 class="title_heading">'.get_the_title().'</h3></div>';
+      echo '<span class="price"> '.get_post_meta(get_the_ID(), '_gia_tien', TRUE).'VND</span></div></div>';
     endwhile;
   endif;
   wp_reset_query();

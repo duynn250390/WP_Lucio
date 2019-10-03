@@ -13,8 +13,8 @@
                         <li class="item_shop local">65 Triệu Quốc Đạt - Cẩm Lệ - Đà Nẵng</li>
                         <li class="item_shop hotline">0935 994 973</li>
                         <li class="item_shop email">lucioshop@gmail.com</li>
-                        <li class="item_shop facebook"><a
-                                href="www.facebook.com/lucioshop">www.facebook.com/lucioshop</a></li>
+                        <li class="item_shop facebook">
+                            <a href="https://www.facebook.com/lucioshopp">www.facebook.com/lucioshopp</a></li>
                     </ul>
                 </div>
                 <div class="item_box_ft box_footer02">

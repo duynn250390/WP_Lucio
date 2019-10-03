@@ -84,7 +84,7 @@
             <div class="check_order check_control">
                 <input type="checkbox" id="check_order" class="check_order_in check_show_custom">
                 <span class="checkmark"></span>
-                <label for="check_order" class="check_order_label">Bạn cần mua ?</label>
+                <label for="check_order" class="check_order_label">ĐẶT HÀNG NGAY</label>
             </div>
 
             <div class="box_order">
